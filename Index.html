@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mary Wambui Friendship Challenge</title>
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #ff69b4, #8a2be2);
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+}
+.container {
+    max-width: 700px;
+    margin: auto;
+}
+.card {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 15px;
+    margin-top: 20px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+button {
+    padding: 12px 20px;
+    margin: 8px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 16px;
+    background-color: white;
+    color: #8a2be2;
+    font-weight: bold;
+    transition: background 0.2s;
+    width: 80%;
+    max-width: 300px;
+}
+button:hover {
+    background-color: #f0f0f0;
+}
+.hidden {
+    display: none;
+}
+</style>
+</head>
+<body>
+<div class="container">
+<h1>😍 Mary Wambui has CHALLENGED Your Friendship 👸🤴</h1>
+<div class="card" id="start">
+    <h2>Take This Challenge Now!</h2>
+    <button onclick="startQuiz()">Start the Challenge</button>
+</div>
+<div class="card hidden" id="quiz">
+    <h2 id="question"></h2>
+    <div id="answers"></div>
+</div>
+<div class="card hidden" id="result">
+    <h2>🎉 Challenge Complete!</h2>
+    <p id="score"></p>
+    <p>You know Mary Wambui very well! ❤️</p>
+</div>
+</div>
+
+<script>
+const questions = [
+{
+    q: "1. What makes Mary smile the fastest?",
+    a: ["Sweet messages from her man", "Money", "Food", "Movies"],
+    correct: "Sweet messages from her man"
+},
+{
+    q: "2. Is Mary the girl of your type?",
+    a: ["Yes", "No"],
+    correct: "Yes"
+},
+{
+    q: "3. What does Mary love to do when she is idle?",
+    a: ["Sleeping", "Talking to her man", "Watching TV", "Shopping"],
+    correct: "Talking to her man"
+},
+{
+    q: "4. Has Mary ever cheated on her man?",
+    a: ["Yes", "No"],
+    correct: "No" // Updated to "No" so loyalty is rewarded!
+}
+];
+
+let current = 0;
+let score = 0;
+
+function startQuiz() {
+    document.getElementById("start").classList.add("hidden");
+    document.getElementById("quiz").classList.remove("hidden");
+    showQuestion();
+}
+
+function showQuestion() {
+    document.getElementById("question").innerText = questions[current].q;
+    let html = "";
+    questions[current].a.forEach(ans => {
+        html += `<button onclick="checkAnswer('${ans}')">${ans}</button><br>`;
+    });
+    document.getElementById("answers").innerHTML = html;
+}
+
+function checkAnswer(ans) {
+    if (ans === questions[current].correct) {
+        score++;
+    }
+    current++;
+    if (current < questions.length) {
+        showQuestion();
+    } else {
+        document.getElementById("quiz").classList.add("hidden");
+        document.getElementById("result").classList.remove("hidden");
+        document.getElementById("score").innerText = "You scored " + score + " out of " + questions.length + "!";
+    }
+}
+</script>
+</body>
+</html>
